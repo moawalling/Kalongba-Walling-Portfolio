@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <title>Redoyanul Haque — Full Stack Web Developer</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0a080c;
+        --fg: #e8e4ee;
+        --mut: #8d8796;
+        --ac: #9b5cff;
+        --ac2: #d9bdff;
+        --ln: rgba(255, 255, 255, 0.14);
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+        overflow-x: hidden;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: calc(18px + env(safe-area-inset-top, 0px)) 5vw 18px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        mix-blend-mode: difference;
+      }
+      nav div {
+        display: flex;
+        gap: 4vw;
+      }
+      #glow {
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #d9bdff;
+        box-shadow: 0 0 30px #b98cff;
+        pointer-events: none;
+        z-index: 60;
+        transform: translate(-50%, -50%);
+        mix-blend-mode: difference;
+        transition:
+          width 0.2s,
+          height 0.2s;
+      }
+      section {
+        padding: 120px 6vw;
+      }
+      h2 {
+        font-size: clamp(36px, 6vw, 72px);
+        font-weight: 300;
+        text-align: center;
+        line-height: 1.05;
+        margin-bottom: 70px;
+      }
+      h2 em {
+        font-style: normal;
+        color: var(--ac);
+      }
+      .hero {
+        min-height: 100vh;
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4vw;
+        padding: 88px 6vw 32px;
+        position: relative;
+        background: radial-gradient(
+          ellipse at 70% 40%,
+          rgba(155, 92, 255, 0.28),
+          transparent 60%
+        );
+      }
+      .hero small {
+        color: var(--ac2);
+        letter-spacing: 0.3em;
+        font-size: 13px;
+        margin-bottom: clamp(8px, 2svh, 20px);
+        display: block;
+      }
+      .hero .txt {
+        flex: 1;
+        min-width: 0;
+        position: relative;
+        z-index: 2;
+      }
+      .hero h1 {
+        font-size: clamp(38px, min(8.5vw, 17svh), 140px);
+        font-weight: 300;
+        line-height: 0.95;
+        text-transform: uppercase;
+      }
+      .hero p {
+        margin-top: clamp(14px, 3svh, 28px);
+        font-size: clamp(17px, 2.4vw, 30px);
+        color: var(--ac2);
+      }
+      .about p {
+        max-width: 820px;
+        margin: 0 auto;
+        font-size: clamp(18px, 2.2vw, 26px);
+        line-height: 1.6;
+        color: #cfc9d8;
+        text-align: center;
+      }
+      .about p b {
+        color: var(--ac2);
+        font-weight: 500;
+      }
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 6vw;
+        margin-top: 60px;
+        flex-wrap: wrap;
+      }
+      .stats div {
+        text-align: center;
+      }
+      .stats strong {
+        display: block;
+        font-size: 48px;
+        font-weight: 300;
+        color: var(--ac);
+      }
+      .stats span {
+        color: var(--mut);
+        font-size: 13px;
+      }
+      .tl {
+        position: relative;
+        max-width: 900px;
+        margin: 0 auto;
+        padding-left: 40px;
+      }
+      .tl::before {
+        content: "";
+        position: absolute;
+        left: 6px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--ln);
+      }
+      .tl i {
+        position: absolute;
+        left: 6px;
+        top: 0;
+        width: 2px;
+        height: 0;
+        background: linear-gradient(var(--ac2), var(--ac));
+        box-shadow: 0 0 12px var(--ac);
+      }
+      .it {
+        position: relative;
+        padding: 0 0 70px;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: 0.8s;
+      }
+      .it.on {
+        opacity: 1;
+        transform: none;
+      }
+      .it::before {
+        content: "";
+        position: absolute;
+        left: -40px;
+        top: 6px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 2px solid var(--ln);
+        transition: 0.6s;
+      }
+      .it.on::before {
+        background: var(--ac);
+        border-color: var(--ac);
+        box-shadow: 0 0 14px var(--ac);
+      }
+      .it .yr {
+        font-size: clamp(28px, 4vw, 48px);
+        font-weight: 300;
+        color: var(--mut);
+      }
+      .it h3 {
+        font-size: 22px;
+        margin: 8px 0 4px;
+      }
+      .it h4 {
+        color: var(--ac2);
+        font-weight: 400;
+        margin-bottom: 10px;
+      }
+      .it p {
+        color: #b8b2c2;
+        line-height: 1.6;
+        max-width: 600px;
+        font-size: 15px;
+      }
+      .certs {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .cert {
+        border: 1px solid var(--ln);
+        border-radius: 14px;
+        padding: 26px;
+        background: rgba(255, 255, 255, 0.03);
+        transition: 0.3s;
+      }
+      .cert:hover {
+        border-color: var(--ac);
+        transform: translateY(-6px);
+        background: rgba(155, 92, 255, 0.08);
+      }
+      .cert span {
+        color: var(--ac2);
+        font-size: 12px;
+        letter-spacing: 0.15em;
+      }
+      .cert h3 {
+        margin: 12px 0 8px;
+        font-size: 19px;
+        font-weight: 500;
+      }
+      .cert p {
+        color: var(--mut);
+        font-size: 14px;
+      }
+      .work {
+        padding: 0;
+        height: 400vh;
+        position: relative;
+      }
+      .pin {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        height: 100svh;
+        overflow: hidden;
+        padding-top: 90px;
+      }
+      .pin h2 {
+        text-align: left;
+        margin: 0 0 30px 6vw;
+        font-size: clamp(32px, 5vw, 56px);
+      }
+      .track {
+        display: flex;
+        height: calc(100% - 160px);
+        border-top: 1px solid var(--ln);
+        will-change: transform;
+      }
+      .card {
+        flex: 0 0 min(36vw, 420px);
+        min-width: 290px;
+        padding: 30px;
+        overflow: hidden;
+        border-right: 1px solid var(--ln);
+      }
+      .card .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .card .n {
+        font-size: 36px;
+        font-weight: 500;
+      }
+      .card .t {
+        text-align: right;
+        font-weight: 700;
+      }
+      .card .t small {
+        display: block;
+        color: var(--mut);
+        font-weight: 400;
+        margin-top: 4px;
+      }
+      .card h5 {
+        margin: 26px 0 8px;
+        font-size: 17px;
+      }
+      .card p {
+        color: var(--mut);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+      .img {
+        margin-top: 22px;
+        aspect-ratio: 16/9;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+        padding: 10px;
+        transition: 0.4s;
+      }
+      .card:hover .img {
+        transform: scale(1.04);
+      }
+      .bar {
+        position: absolute;
+        left: 6vw;
+        right: 6vw;
+        bottom: 40px;
+        height: 2px;
+        background: var(--ln);
+      }
+      .bar i {
+        display: block;
+        height: 100%;
+        width: 0;
+        background: var(--ac);
+      }
+      .stack {
+        background: radial-gradient(
+          ellipse at 50% 60%,
+          rgba(155, 92, 255, 0.3),
+          transparent 65%
+        );
+      }
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .grid span {
+        width: 96px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 12px;
+        border: 1px solid var(--ln);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(6px);
+        transition: 0.25s;
+        padding: 6px;
+      }
+      .grid span i {
+        font-size: 34px;
+        color: var(--ac2);
+        transition: 0.25s;
+      }
+      .grid span b {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: var(--ac2);
+        transition: 0.25s;
+      }
+      .grid span:hover i,
+      .grid span:hover b {
+        color: #fff;
+        transform: scale(1.15);
+      }
+      .grid span:hover {
+        border-color: var(--ac);
+        background: rgba(155, 92, 255, 0.2);
+        transform: translateY(-6px);
+        box-shadow: 0 0 20px rgba(155, 92, 255, 0.4);
+      }
+      .contact h2 {
+        text-align: left;
+        text-transform: uppercase;
+        margin-bottom: 50px;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 40px;
+      }
+      .cols small {
+        display: block;
+        color: var(--mut);
+        font-size: 13px;
+        margin: 0 0 6px;
+      }
+      .cols p {
+        margin-bottom: 22px;
+        font-size: 15px;
+      }
+      .soc a {
+        display: block;
+        width: max-content;
+        font-size: 24px;
+        padding: 4px 0;
+        border-bottom: 1px solid var(--ln);
+        margin-bottom: 8px;
+        transition: 0.3s;
+      }
+      .soc a:hover {
+        color: var(--ac2);
+        padding-right: 10px;
+      }
+      .cols em {
+        font-style: normal;
+        color: var(--ac2);
+      }
+      footer {
+        text-align: center;
+        color: var(--mut);
+        font-size: 13px;
+        padding: 30px;
+      }
+      @media (max-width: 700px) {
+        nav div {
+          gap: 16px;
+        }
+        nav > a {
+          display: none;
+        }
+        #glow {
+          display: none;
+        }
+      }
+
+      .photo {
+        position: relative;
+        flex: none;
+        height: clamp(240px, 72svh, 620px);
+        aspect-ratio: 3/4;
+        max-width: 42vw;
+        animation: fl 6s ease-in-out infinite;
+      }
+      .photo::before {
+        content: "";
+        position: absolute;
+        inset: -12%;
+        background: radial-gradient(
+          circle,
+          rgba(155, 92, 255, 0.55),
+          transparent 65%
+        );
+        filter: blur(30px);
+        z-index: 0;
+      }
+      .frame {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        border-radius: 999px 999px 28px 28px;
+        overflow: hidden;
+        border: 1px solid rgba(217, 189, 255, 0.35);
+        background: linear-gradient(
+          160deg,
+          rgba(155, 92, 255, 0.5),
+          rgba(18, 10, 36, 0.95)
+        );
+        box-shadow: 0 0 70px rgba(155, 92, 255, 0.35);
+      }
+      .frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        display: block;
+      }
+      .frame::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 30%;
+        background: linear-gradient(transparent, rgba(10, 8, 12, 0.85));
+      }
+      @keyframes fl {
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+      @media (max-width: 1024px) {
+        section { padding: 100px 6vw; }
+        .card { flex-basis: min(46vw, 400px); }
+      }
+      @media (max-width: 800px) {
+        .hero {
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          gap: 16px;
+          padding: 84px 6vw 24px;
+        }
+        .hero .txt { flex: none; width: 100%; }
+        .hero h1 { font-size: clamp(36px, min(13vw, 11svh), 90px); }
+        .photo {
+          height: clamp(200px, 42svh, 480px);
+          max-width: 80vw;
+          align-self: center;
+          margin: 0 auto;
+        }
+        section { padding: 80px 6vw; }
+        h2 { margin-bottom: 44px; }
+        .work { padding: 0; }
+        .card { flex-basis: 78vw; min-width: 260px; padding: 22px; }
+        .tl { padding-left: 30px; }
+        .it::before { left: -30px; }
+        .stats strong { font-size: 38px; }
+        .soc a { font-size: 20px; }
+        .grid span { width: 84px; height: 70px; font-size: 11px; }
+      }
+      @media (max-width: 420px) {
+        nav { font-size: 12px; padding-left: 6vw; padding-right: 6vw; }
+        nav div { gap: 14px; }
+        .grid span { width: calc(33.333% - 8px); }
+        .contact h2 { font-size: clamp(30px, 10vw, 44px); overflow-wrap: anywhere; }
+      }
+      /* short landscape screens (phones sideways, small laptops) */
+      @media (max-height: 520px) and (orientation: landscape) {
+        .hero { flex-direction: row; align-items: center; padding: 70px 6vw 16px; }
+        .photo { height: 70svh; align-self: center; margin: 0; }
+        .hero h1 { font-size: clamp(32px, 14svh, 80px); }
+      }
+      @media (hover: none) {
+        #glow { display: none; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .photo { animation: none; }
+        html { scroll-behavior: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="glow"></div>
+    <nav>
+      <a href="mailto:moawalling75@gmail.com">moawalling75@gmail.com</a>
+      <div>
+        <a href="#about">ABOUT</a><a href="#work">WORK</a
+        ><a href="#contact">CONTACT</a>
+      </div>
+    </nav>
+
+    <section class="hero" id="main">
+      <div class="txt">
+        <small>PORTFOLIO — 2026</small>
+        <h1>Kalongba<br />Walling</h1>
+        <p>Full Stack Web Developer</p>
+      </div>
+      <div class="photo">
+        <div class="frame">
+          <img
+            id="photo"
+            alt="Portrait"
+            src="Profile.png"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <h2>About <em>me</em></h2>
+      <p>
+        I’m a <b>full stack web developer</b> from Bangladesh who loves turning
+        ideas into fast, clean and useful products — from responsive interfaces
+        to APIs and databases. I also explore <b>AI and machine learning</b>,
+        always learning something new.
+      </p>
+      <div class="stats">
+        <div><strong>10+</strong><span>Projects built</span></div>
+        <div><strong>3+</strong><span>Years coding</span></div>
+        <div><strong>∞</strong><span>Curiosity</span></div>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2>My <em>education</em></h2>
+      <div class="tl">
+        <i></i>
+        <div class="it">
+          <div class="yr">2023 — Present</div>
+          <h3>B.Sc. in Computer Science &amp; Engineering</h3>
+          <h4>Your University Name</h4>
+          <p>Replace with your degree details, focus areas and achievements.</p>
+        </div>
+        <div class="it">
+          <div class="yr">2020 — 2022</div>
+          <h3>Higher Secondary Certificate (HSC)</h3>
+          <h4>Your College Name</h4>
+          <p>Science group. Add your GPA or highlights here.</p>
+        </div>
+        <div class="it">
+          <div class="yr">2018 — 2020</div>
+          <h3>Secondary School Certificate (SSC)</h3>
+          <h4>Your School Name</h4>
+          <p>Science group. Add your GPA or highlights here.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="certification">
+      <h2>My <em>certifications</em></h2>
+      <div class="certs">
+        <div class="cert">
+          <span>2025</span>
+          <h3>Certification Title One</h3>
+          <p>Issuing organization</p>
+        </div>
+        <div class="cert">
+          <span>2025</span>
+          <h3>Certification Title Two</h3>
+          <p>Issuing organization</p>
+        </div>
+        <div class="cert">
+          <span>2024</span>
+          <h3>Certification Title Three</h3>
+          <p>Issuing organization</p>
+        </div>
+        <div class="cert">
+          <span>2024</span>
+          <h3>Certification Title Four</h3>
+          <p>Issuing organization</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="work" id="work">
+      <div class="pin">
+        <h2>My <em>Work</em></h2>
+        <div class="track">
+          <div class="card">
+            <div class="top">
+              <span class="n">01</span>
+              <div class="t">Drishti<small>AI / LLM</small></div>
+            </div>
+            <h5>Tools and features</h5>
+            <p>Python, PyTorch, Transformers, FastAPI, React, MongoDB</p>
+            <div
+              class="img"
+              style="background: linear-gradient(135deg, #0b5560, #0a2a4a)"
+            >
+              Drishti
+            </div>
+          </div>
+          <div class="card">
+            <div class="top">
+              <span class="n">02</span>
+              <div class="t">VoteChain<small>Blockchain</small></div>
+            </div>
+            <h5>Tools and features</h5>
+            <p>Solidity, Web3.js, React, Ethereum, IPFS, MetaMask, Node.js</p>
+            <div
+              class="img"
+              style="background: linear-gradient(135deg, #0a4f6e, #12305e)"
+            >
+              VoteChain
+            </div>
+          </div>
+          <div class="card">
+            <div class="top">
+              <span class="n">03</span>
+              <div class="t">Flood Spaces 2.0<small>AI / ML</small></div>
+            </div>
+            <h5>Tools and features</h5>
+            <p>Python, TensorFlow, Pandas, React, FastAPI, GIS</p>
+            <div
+              class="img"
+              style="background: linear-gradient(135deg, #0c5a66, #14396b)"
+            >
+              Flood Spaces 2.0
+            </div>
+          </div>
+          <div class="card">
+            <div class="top">
+              <span class="n">04</span>
+              <div class="t">Phoenix<small>Voice Assistant</small></div>
+            </div>
+            <h5>Tools and features</h5>
+            <p>Python, Speech Recognition, OpenAI API, Tkinter</p>
+            <div
+              class="img"
+              style="background: linear-gradient(135deg, #0d5a6a, #3a1d6e)"
+            >
+              Phoenix
+            </div>
+          </div>
+          <div class="card">
+            <div class="top">
+              <span class="n">05</span>
+              <div class="t">Your Project<small>Web App</small></div>
+            </div>
+            <h5>Tools and features</h5>
+            <p>Add your stack here</p>
+            <div
+              class="img"
+              style="background: linear-gradient(135deg, #3a1d6e, #0a2a4a)"
+            >
+              Coming soon
+            </div>
+          </div>
+        </div>
+        <div class="bar"><i></i></div>
+      </div>
+    </section>
+
+    <section class="stack" id="stack">
+      <h2>Tech <em>stack</em></h2>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2>Kalongba Walling</h2>
+      <div class="cols">
+        <div>
+          <small>Email</small>
+          <p>moawalling75@gmail.com</p>
+          <small>Location</small>
+          <p>Dimapur</p>
+        </div>
+        <div class="soc">
+          <small>Social</small><a href="#">Github ↗</a><a href="#">Linkedin ↗</a
+          ><a href="#">Twitter ↗</a><a href="#">Facebook ↗</a
+          ><a href="#">Instagram ↗</a>
+        </div>
+        <div>
+          <p style="font-size: 22px">
+            Designed and Developed<br />by <em>Kalongba Walling</em>
+          </p>
+          <small>© 2026</small>
+        </div>
+      </div>
+    </section>
+    <footer>Let’s build something great together.</footer>
+
+    <script>
+      // Tech stack tiles
+      // [name, Font Awesome class]. Use "" for the class to show a text badge instead.
+      var techs = [
+        ["Python", "fa-brands fa-python"],
+        ["JavaScript", "fa-brands fa-js"],
+        ["HTML", "fa-brands fa-html5"],
+        ["CSS", "fa-brands fa-css3-alt"],
+        ["Bash", "fa-solid fa-terminal"],
+        ["React", "fa-brands fa-react"],
+        ["Bootstrap", "fa-brands fa-bootstrap"],
+        ["Node.js", "fa-brands fa-node-js"],
+        ["Docker", "fa-brands fa-docker"],
+        ["Azure", "fa-brands fa-microsoft"],
+        ["Git", "fa-brands fa-git-alt"],
+        ["GitHub", "fa-brands fa-github"],
+        ["Linux", "fa-brands fa-linux"],
+        ["AWS", "fa-brands fa-aws"],
+      ];
+      document.getElementById("grid").innerHTML = techs
+        .map(function (t) {
+          var inner = t[1]
+            ? '<i class="' + t[1] + '" aria-hidden="true"></i>'
+            : "<b>" + t[0] + "</b>";
+          return (
+            '<span title="' + t[0] + '" aria-label="' + t[0] + '">' + inner + "</span>"
+          );
+        })
+        .join("");
+
+      // Cursor glow
+      var g = document.getElementById("glow"),
+        mx = innerWidth / 2,
+        my = 120,
+        gx = mx,
+        gy = my;
+      addEventListener("mousemove", function (e) {
+        mx = e.clientX;
+        my = e.clientY;
+      });
+      (function loop() {
+        gx += (mx - gx) * 0.15;
+        gy += (my - gy) * 0.15;
+        g.style.left = gx + "px";
+        g.style.top = gy + "px";
+        requestAnimationFrame(loop);
+      })();
+
+      // Education: scroll reveal + progress line
+      var items = document.querySelectorAll(".it");
+      var io = new IntersectionObserver(
+        function (es) {
+          es.forEach(function (e) {
+            if (e.isIntersecting) e.target.classList.add("on");
+          });
+        },
+        { threshold: 0.35 },
+      );
+      items.forEach(function (i) {
+        io.observe(i);
+      });
+      var tl = document.querySelector(".tl"),
+        fill = tl.querySelector("i");
+
+      // Work: horizontal scroll
+      var work = document.getElementById("work"),
+        track = work.querySelector(".track"),
+        bar = work.querySelector(".bar i");
+      function size() {
+        var ph = work.querySelector(".pin").offsetHeight;
+        var d = Math.max(0, track.scrollWidth - innerWidth + 60);
+        work.style.height = d + ph + "px";
+      }
+      function onScroll() {
+        var r = tl.getBoundingClientRect(),
+          p = Math.min(1, Math.max(0, (innerHeight * 0.6 - r.top) / r.height));
+        fill.style.height = p * 100 + "%";
+        var wr = work.getBoundingClientRect(),
+          max = Math.max(1, work.offsetHeight - work.querySelector(".pin").offsetHeight),
+          q = Math.min(1, Math.max(0, -wr.top / max));
+        var d = Math.max(0, track.scrollWidth - innerWidth + 60);
+        track.style.transform = "translateX(" + -q * d + "px)";
+        bar.style.width = q * 100 + "%";
+      }
+      addEventListener("scroll", onScroll, { passive: true });
+      addEventListener("resize", function () {
+        size();
+        onScroll();
+      });
+      addEventListener("load", function () {
+        size();
+        onScroll();
+      });
+      size();
+      onScroll();
+    </script>
+  </body>
+</html>
